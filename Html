@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #007BFF;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        input, textarea, select, button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        button {
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .message {
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Feedback Form</h2>
+        <form id="feedbackForm">
+            <label for="name">Name (optional):</label>
+            <input type="text" id="name" name="name" placeholder="Anonymous">
+
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="rating">Rate Us (1–5):</label>
+            <select id="rating" name="rating" required>
+                <option value="">Select...</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2</option>
+                <option value="3">3 - Average</option>
+                <option value="4">4</option>
+                <option value="5">5 - Excellent</option>
+            </select>
+
+            <label for="comments">Your Feedback:</label>
+            <textarea id="comments" name="comments" required></textarea>
+
+            <button type="submit">Submit Feedback</button>
+        </form>
+        <div id="message" class="message"></div>
+    </div>
+
+    <script>
+        document.getElementById("feedbackForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById("name").value || "Anonymous";
+            const email = document.getElementById("email").value;
+            const rating = document.getElementById("rating").value;
+            const comments = document.getElementById("comments").value;
+            const timestamp = new Date().toISOString();
+
+            const feedback = {
+                timestamp,
+                name,
+                email,
+                rating,
+                comments
+            };
+
+            console.log("Feedback submitted:", feedback);
+
+            // Here you can send the data to your backend API (Python, Node.js, etc.)
+            // Example:
+            // await fetch("/api/feedback", {
+            //     method: "POST",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify(feedback)
+            // });
+
+            document.getElementById("message").textContent = "✅ Thank you for your feedback!";
+            document.getElementById("feedbackForm").reset();
+        });
+    </script>
+</body>
+</html>
